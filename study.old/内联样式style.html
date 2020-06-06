@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<div class="" id="app">
+    <div v-bind:style="{border: borderStyle, width: widthStyle, height: heightStyle}"></div>
+    <button v-on:click="handle">切换</button>
+    <!-- 对象方式： -->
+    <div v-bind:style="objStyles"></div>
+    <!-- 数组形式： -->
+    <div v-bind:style="[objStyles, overrideStyles]"></div>
+<!--  有的样式会被后面覆盖，没有的会加上  -->
+</div>
+
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            borderStyle: "1px solid blue",
+            widthStyle: "100px",
+            heightStyle: "200px",
+            objStyles: {
+                border: "1px solid blue",
+                width: "200px",
+                height: "100px",
+            },
+            overrideStyles: {
+                border: "5px solid orange",
+                backgroundColor: "blue",
+            },
+        },
+        methods: {
+            handle: function () {
+                this.heightStyle = "100px";
+                this.borderStyle = "1px solid red";
+            },
+        },
+    });
+</script>
+</body>
+</html>

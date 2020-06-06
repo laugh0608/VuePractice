@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{msg}}
+			<ul>
+				<li v-for="item in arr">{{item}}</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			var app = new Vue({
+				el:"#app",
+				data:{
+					msg:"hello Vue",
+					arr:["小红","小黑","小白"]
+					
+				},
+				watch:{
+					msg:function(val){
+						console.log("监听事件被触发---msg");
+						console.log(val);
+					},
+					arr:function(val){
+						console.log("监听事件---arr");
+						console.log(val);
+						// 当监听到的时候可以干很多事，比如该背景颜色更改信息之类的
+						this.msg="监听到用户数据被修改"
+					}
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>

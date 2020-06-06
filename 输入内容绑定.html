@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{username}}</h2>
+			<h3>单行本文输入框</h3>
+			<input type="text" id="" v-model="username" value="" />
+			
+			<h3>多行文本输入框</h3>
+			<textarea rows="" cols="" v-model="username"></textarea>
+			
+			<br>
+			<h3>复选框</h3>
+			<span v-for="item in fruits">
+				{{item}}
+				<input type="checkbox" name="fruits" id="" :value="item"  v-model="checkFruits"/>
+			</span>
+			<h3>{{checkFruits}}</h3>
+			
+			<br>
+			<h3>单选框</h3>
+			<span v-for="item in fruits">
+				{{item}}
+				<input type="radio" name="fruits" id="" :value="item"  v-model="radio"/>
+			</span>
+			<h3>{{radio}}</h3>
+			
+			<br>
+			<h3>单选项框</h3>
+			<select name="" v-model="chooseCity">
+				<option disabled value="">请选择</option>
+				<!-- 在 iOS 中，这会使用户无法选择第一个选项。因为这样的情况下，iOS 不会触发 change 事件。
+				因此，更推荐像下面这样提供一个值为空的禁用选项。 -->
+				<option :value="item" v-for="item in cities">{{item}}</option>
+			</select>
+			<h3>{{chooseCity}}</h3>
+			
+			<br>
+			<h3>多选项框</h3>
+			<select name="" v-model="moreCity" multiple="multiple">
+				<option disabled value="">请选择</option>
+				<option :value="item" v-for="item in cities">{{item}}</option>
+			</select>
+			<h3>{{moreCity}}</h3>
+			
+			<br>
+			<h3>将字符串变为数字获取</h3>
+			<input type="text" name="age" id="" value="" v-model.number="age" />
+			
+			<br>
+			<h3>在默认情况下，v-model 在每次 input 事件触发后将输入框的值与数据进行同步,
+			 lazy 修饰符转为在 change 事件_之后_进行同步：</h3>
+			 <h3>{{username}}</h3>
+			 <input v-model.lazy="username">
+		</div>
+
+		<script type="text/javascript">
+			var app = new Vue({
+				el:"#app",
+				data:{
+					username:'小明',
+					fruits:['苹果','香蕉','葡萄','凤梨'],
+					checkFruits:[],
+					radio:"",
+					cities:['北京','上海','广州','深圳'],
+					chooseCity:'',
+					moreCity:[],
+					age:20,
+				},
+				watch:{
+					age:function(val){
+						console.log(val)
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

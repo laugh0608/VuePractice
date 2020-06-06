@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="" id="app">
+      <a v-bind:href="url" v-text="name"></a>
+      <a :href="url" v-text="name"></a>
+      <button type="button" name="button" v-on:click="handle">切换查询方式</button>
+    </div>
+
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          url: "https://www.baidu.com",
+          name: "BaiDu",
+        },
+        methods: {
+          handle: function(){
+            this.url="https://www.csdn.net";
+            this.name="CSDN";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

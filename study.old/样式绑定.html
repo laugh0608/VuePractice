@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.active {
+				border: 1px solid red;
+				width: 100px;
+				height: 100px;
+			}
+
+			.error {
+				background-color: orange;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="" id="app">
+			<div v-bind:class="{active: isActive, error: isError}">
+				测试样式
+			</div>
+			<button v-on:click="handle">方框打开/消失</button>
+		</div>
+
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					isActive: true,
+					isError: true,
+				},
+				methods: {
+					handle: function(argument) {
+						// 控制isActive的值在true和false之间切换
+						this.isActive = !this.isActive;
+						this.isError = !this.isError;
+					}
+				},
+			});
+		</script>
+	</body>
+</html>

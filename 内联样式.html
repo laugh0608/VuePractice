@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- CSS内联样式变量拼接 -->
+			<div style="width: 100px;height: 100px;background-color: skyblue;" 
+				:style="{border: borderWidth+'px solid red',padding:paddingWidth+'px'}"></div>
+			<br>
+			
+			<!-- CSS内联样式放置对象 -->
+			<div :style="styleObj"></div>
+			<br>
+			
+			<!-- CSS数组的方式拼接 -->
+			<div :style="styleSrr"></div>
+		</div>
+
+		<script type="text/javascript">
+			var app = new Vue({
+				el:"#app",
+				data:{
+					borderWidth:10,
+					paddingWidth:30,
+					styleObj:{
+						width:"200px",
+						height:"300px",
+						"background-color":"skyblue"
+					},
+					styleSrr:[
+						{
+							width:"200px",
+							height:"300px",
+							"background-color":"skyblue"
+						},{
+							border:"5px solid yellow"
+						}
+					]
+				},
+			})
+		</script>
+	</body>
+</html>

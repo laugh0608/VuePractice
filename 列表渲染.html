@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="item in stars">
+					{{item}}
+				</li>
+			</ul>
+			<h1>循环渲染</h1>
+			<ul>
+				<li v-for="item in students">
+					<h4>学生姓名：{{item.name}}</h4>
+					<p>年龄：{{item.age}}------学校：{{item.school}}</p>
+				</li>
+			</ul>
+			<h1>带索引值</h1>
+			<ul>
+				<li v-for="item,key in students">
+					<h4>索引值：{{key}}------学生姓名：{{item.name}}</h4>
+					<p>年龄：{{item.age}}------学校：{{item.school}}</p>
+				</li>
+			</ul>
+			<h1>循环对象</h1>
+			<ul>
+				<li v-for="item,key in students[0]">{{key}}------{{item}}</li>
+			</ul>
+			<img :src="students[0].touxiang">
+			<!-- 这是属性绑定 -->
+
+			<h1>条件+循环渲染，只将年龄为偶数的学生循环出来</h1>
+			<ul>
+				<li v-for="item,index in students" v-if="item.age%2==0" :key="index">
+					<!-- 这里是先循环再进行判断，即使把v-if写在前面也是先循环再判断 -->
+					<h4>索引值：{{index}}------学生姓名：{{item.name}}</h4>
+					<p>年龄：{{item.age}}------学校：{{item.school}}</p>
+				</li>
+			</ul>
+
+			<!-- 那个key值有什么作用呢？比如现在我有两个页面，一个是登录一个是注册，两个页面都有一个输入框，如果不加key值的话他会把
+			 两个页面识别为同一个输入框，比如我在登录页面的输入框输入admin然后点击切换到注册页面，这个admin并不会进行删除，加上key值
+			 就意味着把这两个页面分别进行特征处理，让他在切换的时候进行删除，例如：-->
+			<div v-if="isLogin">
+				<h1>登录</h1>
+				<input type="text" name="username" />
+				<input type="password" name="password" />
+			</div>
+			<div v-else>
+				<h1>注册</h1>
+				<input type="text" name="username" />
+				<input type="password" name="password" />
+			</div>
+			<button @click="change" type="button">切换登录注册页面</button>
+			<!-- 这个时候点击切换页面输入框中的内容并不会删除，虽然能提高效率，但是有可能带来代码冲突的隐患，如何避免呢？
+			  第一种方法可以把两个输出框单独用div包裹起来，第二种就是加上key值，例如：-->
+			<div v-if="isLogin" key="login">
+				<h1>登录</h1>
+				<input type="text" name="username" />
+				<input type="password" name="password" />
+			</div>
+			<div v-else key="register">
+				<h1>注册</h1>
+				<input type="text" name="username" />
+				<input type="password" name="password" />
+			</div>
+			<button @click="change" type="button">切换登录注册页面</button>
+			<!-- 这个时候的key为什么不加冒号呢？因为这里绑定的是字符串，而不是变量 -->
+			<!-- 用div包裹起来也可以： -->
+			<div v-if="isLogin">
+				<h1>登录</h1>
+				<div id="">
+					<input type="text" name="username" />
+					<input type="password" name="password" />
+				</div>
+			</div>
+			<div v-else>
+				<h1>注册</h1>
+				<div id="">
+					<input type="text" name="username" />
+					<input type="password" name="password" />
+				</div>
+			</div>
+			<button @click="change" type="button">切换登录注册页面</button>
+		</div>
+
+		<script type="text/javascript">
+			var app = new Vue({
+				el: "#app",
+				data: {
+					stars: ["蔡徐坤", "范冰冰", "李晨", "苏有朋"],
+					students: [{
+						name: "小明",
+						age: 18,
+						school: "北大",
+						touxiang: "http://pic1.zhimg.com/50/v2-deff985cfcb7690bc71fdf8676438146_hd.jpg"
+					}, {
+						name: "小红",
+						age: 17,
+						school: "清华"
+					}, {
+						name: "小白",
+						age: 20,
+						school: "北大"
+					}, {
+						name: "小黑",
+						age: 15,
+						school: "清华"
+					}],
+					isLogin: true,
+				},
+				methods: {
+					change: function(e) {
+						app.isLogin = !app.isLogin;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

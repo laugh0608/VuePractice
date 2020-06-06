@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="" @click="one">
+				<button type="button" @click="two">点击</button>
+			</div>
+			<!-- 冒泡就是当事件two被触发之后，动作向上传递到父级元素，导致one事件也被触发，点击按钮相当于点击了整个div，
+			 此时就要用到事件修饰符.stop来阻止冒泡 -->
+			 <div id="" @click="three">
+			 	<button type="button" @click.stop="four">点击2</button>
+			 </div>
+			 <br>
+			 <!-- 阻止默认行为修饰符 -->
+			 <form action="" method="post">
+			 	<input type="text" name="" id="" value="" />
+				<input type="submit" value="提交1"/>
+				<!-- 默认情况下,点击提交1会有一个POST请求被提交,通过.pervent修饰符阻止默认行为 -->
+			 	<input @click.prevent="" type="submit" value="提交2"/>
+			 </form>
+			 <br>
+			 <!-- 怎么拿到输入框的内容呢: -->
+			 <form action="" method="post">
+			 	<input type="text" name="" id="" value="" v-model="city" />
+			 	<input  @click.prevent="search" type="submit" value="提交查询天气"/>
+				<!-- 点击提交后就能看到输出city的值,默认为"西安" -->
+			 </form>
+			 <div id="">
+			 	<h1>天气内容:({{city}})</h1><br>
+				<h3>温度: {{tm}}  ---  风向: {{wind}}  ---  云层: {{yun}}</h3>
+			 </div>
+			 
+			 <!-- 只触发一次修饰符 -->
+			 <button type="button" @click.once="onceEvent">只触发一次点击</button>
+			 <br>
+			 <!-- 绑定输入框回车事件 -->
+			 <input type="text" @keydown.enter="search" name="" id="" value="回车" />
+			 <input type="text" @keydown.f1="search" name="" id="" value="F1" />
+			 <input type="text" @keydown.enter.f1="search" name="" id="" value="回车和F1" />
+			 <button type="button" @click.ctrl="ctrlEvent">按住Ctrl事件</button>
+			 <!-- 此时只要按住Ctrl再点击就能触发此事件，但是如果按住Ctrl和其他键也会触发，此时就需要精确的只识别Ctrl键 -->
+			 <button type="button" @click.ctrl.exact="ctrlEvent">按住Ctrl事件</button>
+		</div>
+
+		<script type="text/javascript">
+			// 自定义按键修饰符
+			Vue.config.keyCodes.f1 = 112
+			var app = new Vue({
+				el:"#app",
+				data:{
+					city:"西安",
+					tm:"",
+					wind:"",
+					yun:"",
+				},
+				methods:{
+					one:function(){
+						console.log("one");
+					},
+					two:function(){
+						console.log("two");
+					},
+					three:function(){
+						console.log("three");
+					},
+					four:function(){
+						console.log("four");
+					},
+					search:async function(){
+						console.log(this.city);
+						let httpUrl = `https://free-api.heweather.net/s6/weather/now?location=${this.city}&key=7d5d6287474e49169e6424e3137764e6`;
+						// 注意用$符号引号就要用反引号
+						let res = await fetch(httpUrl);
+						let result = await res.json();
+						console.log(result);
+						let weather = result.HeWeather6[0].now;
+						this.tm = weather.tmp;
+						this.yun = weather.cond_txt;
+						this.wind = weather.wind_dir;
+					},
+					onceEvent:function(){
+						console.log('只触发一次');
+					},
+					ctrlEvent:function(){
+						console.log("ctrl触发事件");
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

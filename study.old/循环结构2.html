@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="" id="app">
+    <div v-if="v==19" v-for="(v, k, i) in obj" v-text="v + '---' + k + '---' + i"></div>
+</div>
+
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript">
+    //原生js语法,控制台查看
+    var obj = {
+        uname: "lisi",
+        age: 19,
+        gender: "male"
+    };
+    for (var key in obj) {
+        console.log(key, obj[key])
+    }
+    //vue语法
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            obj: {
+                uname: "zhangsan",
+                age: 19,
+                gender: "female"
+            },
+        },
+        methods: {
+
+        },
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h1>{{firstname+lastname}}</h1>
+			<!-- 只有当不停的要使用这两个值的时候下面的方法才会提高性能，因为上面的方法是不管你两个变量的值是否改变，都会进行一次
+			 计算，而下面的这种方法是只要计算一次就会将结果进行缓存，只要变量的值没有改变，他就会直接把上次计算的结果拿出来进行使用-->
+			<h1>{{fullname}}</h1>
+
+			<!-- 逆序显示一个单词 -->
+			<h1>{{ word.split("").reverse().join("") }}</h1>
+			<!-- 性能优化。和上面那个例子类似 -->
+			<h1>{{reverseWord}}</h1>
+
+			<!-- 循环性能优化 -->
+			<ul>
+				<li v-for="item,index in oddStudents">
+					<h2>{{item.name}}</h2>
+					<h2>{{item.age}}---{{item.school}}</h2>
+					<!-- 这样就不用循环之后再进行判断，直接把偶数的对象先计算出来再使用，只循环需要的，而且它最大的优点就是可以先把
+					 计算结果先缓存下来，只要内容不改变他就可以直接拿来用-->
+				</li>
+			</ul>
+			
+			<!-- set和get属性 -->
+			<h1>{{msg}}</h1>
+			<h1>{{reverseMsg}}</h1>
+		</div>
+		
+		<script type="text/javascript">
+			var app = new Vue({
+				el:"#app",
+				data:{
+					firstname:"张",
+					lastname:"三",
+					word:"music",
+					students: [{
+						name: "小明",
+						age: 18,
+						school: "北大"
+					}, {
+						name: "小红",
+						age: 17,
+						school: "清华"
+					}, {
+						name: "小白",
+						age: 20,
+						school: "北大"
+					}, {
+						name: "小黑",
+						age: 15,
+						school: "清华"
+					}],
+					msg:"hello Vue"
+				},
+				computed:{
+					fullname:function(){
+						// 会将计算结果进行缓存
+						return this.firstname+this.lastname;
+					},
+					reverseWord:function(){
+						return this.word.split("").reverse().join("");
+					},
+					oddStudents:function(){
+						let results = this.students.filter((item,i)=>{
+							return item.age%2==0
+						});
+						return results;
+					},
+					reverseMsg:{
+						get:function(){
+							return this.msg.split("").reverse().join("");
+						},
+						set:function(val){
+							console.log(val);
+							this.msg=val.split("").reverse().join("");
+						},
+						// get只能取值然后作用在其他地方，但是set可以设置值本身
+					}
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>

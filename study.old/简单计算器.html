@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="" id="app">
+      <h1>简单计算器(加法)</h1>
+      <div class="">
+        <span>数值A：</span>
+        <span>
+          <input type="text" name="" value="" v-model="a">
+        </span>
+      </div>
+      <div class="">
+        <span>数值B：</span>
+        <span>
+          <input type="text" name="" value="" v-model="b">
+        </span>
+      </div>
+      <div class="">
+        <button type="button" name="button" v-on:click="handle">计算</button>
+      </div>
+      <div class="">
+        <span>计算结果：</span>
+        <span v-text="result"></span>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/vue.js">
+
+    </script>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          a: "",
+          b: "",
+          result: "",
+        },
+        methods: {
+          handle: function(){
+            this.result = parseInt(this.a) + parseInt(this.b);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
