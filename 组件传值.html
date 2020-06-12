@@ -9,22 +9,31 @@
 		<div id="app">
 			<ul>
 				<!-- 从父组件传值到子组件 -->
-				<product-com v-for="item,index in proList" :product="item" :key="'product'+index"></product-com>
+				<product-com @choosproduct="chooseEvent" v-for="item,index in proList" :product="item" :key="'product'+index"></product-com>
 			</ul>
+			<h1>选择的产品是：{{chooseProduct}}</h1>
 		</div>
 
 		<script type="text/javascript">
 			// 产品组件
 			Vue.component("product-com",{
 				props:['product'],
+				// 告知传入的数据从根组件过来
 				template:`<li>
 					<h3>产品名称：{{product.title}}</h3>
 					<h4>产品描述：{{product.brief}}</h4>
 					<p>产品价格：{{product.price}}</p>
+					<button @click="chooseEvent(product)">选择</button>
 				</li>`,
 				data:function(){
 					return {
 						
+					}
+				},
+				methods:{
+					// 子组件向父组件传值必须有一个触发事件
+					chooseEvent:function(product){
+						this.$emit("choosproduct",product)
 					}
 				}
 			})
@@ -52,8 +61,14 @@
 							price:"40",
 							brief:"描述4"
 						},
-					]
+					],
+					chooseProduct:"",
 				},
+				methods:{
+					chooseEvent:function(data){
+						this.chooseProduct = data.title;
+					}
+				}
 			})
 		</script>
 	</body>
