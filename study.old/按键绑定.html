@@ -2,21 +2,21 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>test</title>
   </head>
   <body>
     <div id="app">
       <form class="" action="" method="">
         <div class="">
           用户名：
-          <input type="text" v-on:keyup.delete='clear' v-model='uname'>
+          <input type="text" v-on:keyup.delete="clear" v-model="uname">
         </div>
         <div class="">
           密码：
-          <input type="text" name="" value="" v-on:keyup.enter='handleSubmit' v-model='pwd'>
+          <input type="text" name="" value="" v-on:keyup.enter="handleSubmit" v-model="pwd">
         </div>
         <div class="">
-          <input type="button" v-on:click='handleSubmit' name="" value="提交">
+          <input type="button" v-on:click="handleSubmit" name="" value="提交">
         </div>
       </form>
     </div>

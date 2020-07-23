@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title></title>
-		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
-	</head>
-	<body>
-		<div id="app">
-			<input type="text" v-model="userName" name="" id="" value="" />
-			<!-- 等同于下面这个 -->
-			<input type="text" @input="userName = $event.target.value" :value="userName" name="" id="" />
-			<h3>{{userName}}</h3>
-		</div>
 
-		<script type="text/javascript">
-			var app = new Vue({
-				el:"#app",
-				data:{
-					userName:"",
-				},
-			})
-		</script>
-	</body>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+	<div id="app">
+		<input type="text" v-model="userName" />
+		<!-- 等同于下面这个 -->
+		<input type="text" @input="userName = $event.target.value" :value="userName" />
+		<h3>{{userName}}</h3>
+	</div>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#app",
+			data: {
+				userName: "",
+			},
+		})
+	</script>
+</body>
+
 </html>
